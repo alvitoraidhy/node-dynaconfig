@@ -1,0 +1,33 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm run bootstrap",
+    "clean": "rimraf ./coverage ./packages/*/lib",
+    "bootstrap": "lerna bootstrap",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test:all": "jest --coverage",
+    "test:ci": "npm run test:all && codecov",
+    "build": "lerna run build",
+    "publish:all": "lerna publish",
+    "publish:auto": "npm-run-all bootstrap lint format test:all build publish:all"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "codecov": "^3.8.2",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.0.6",
+    "lerna": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "tsc": "^2.0.3",
+    "typescript": "^4.3.4"
+  }
+}

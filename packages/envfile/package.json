@@ -16,6 +16,7 @@
     "access": "public"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "tsc --project tsconfig.prod.json",
     "test": "jest --coverage"
   },

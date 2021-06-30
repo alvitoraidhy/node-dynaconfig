@@ -1,7 +1,7 @@
 {
   "name": "@dynaconfig/core",
-  "version": "1.0.0",
-  "description": "Dynaconfig Core",
+  "version": "0.0.1",
+  "description": "The core module, used by other Dynaconfig packages",
   "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
   "homepage": "",
   "license": "GPL-3.0",

@@ -1,11 +1,22 @@
 # `@dynaconfig/core`
 
-> TODO: description
+The core module that is used by other packages. Useless on its own.
 
 ## Usage
 
-```
-const core = require('@dynaconfig/core');
+```javascript
+...
+const AsyncConfigStore = require('@dynaconfig/core');
 
-// TODO: DEMONSTRATE API
+const store = new AsyncConfigStore(sourceURI, driver);
+store.newSession().then(async (session) => {
+  const config = session.getConfig();
+
+  const password = config["PASSWORD"];
+  config["PASSWORD_HASH"] = hash(password);
+  delete config["PASSWORD"];
+  ...
+  await store.persistSession(session);
+  return;
+});
 ```

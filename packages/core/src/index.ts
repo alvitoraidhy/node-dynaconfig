@@ -1,16 +1,16 @@
-import path from 'path';
-import { Mutex } from 'async-mutex';
+import { Mutex } from "async-mutex";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import jsonDiff from 'rus-diff';
+import jsonDiff from "rus-diff";
 
 interface ConfigSession {
   storedObj: { [key: string]: unknown };
   stagingObj: { [key: string]: unknown };
 
   refreshConfig(): ConfigSession | Promise<ConfigSession>;
-  getConfig(): ConfigSession['stagingObj'];
-};
+  getConfig(): ConfigSession["stagingObj"];
+}
 
 interface SyncConfigSession extends ConfigSession {
   refreshConfig(): ConfigSession;
@@ -21,15 +21,15 @@ interface AsyncConfigSession extends ConfigSession {
 }
 
 export class ConfigStore {
-  path: string = '';
+  path = "";
 
   driver: {
-    ensureConfigFile: (filePath: string) => void,
-    getConfigFromFile: (filePath: string) => Record<string, unknown>,
-    saveConfig: (filePath: string, newObj: Record<string, unknown>) => void,
-  }
+    ensureConfigFile: (filePath: string) => void;
+    getConfigFromFile: (filePath: string) => Record<string, unknown>;
+    saveConfig: (filePath: string, newObj: Record<string, unknown>) => void;
+  };
 
-  constructor(filePath: string, driver: ConfigStore['driver']) {
+  constructor(filePath: string, driver: ConfigStore["driver"]) {
     this.path = filePath;
     this.driver = driver;
 
@@ -48,14 +48,14 @@ export class ConfigStore {
         return obj;
       },
       getConfig: () => obj.stagingObj,
-    }
+    };
 
     obj.refreshConfig();
 
     return obj;
   }
 
-  persistConfig(session: SyncConfigSession) {
+  persistSession(session: SyncConfigSession): this {
     const diff = jsonDiff.diff(session.storedObj, session.stagingObj);
 
     const fileObj = this.driver.getConfigFromFile(this.path);
@@ -69,17 +69,20 @@ export class ConfigStore {
 }
 
 export class AsyncConfigStore {
-  path: string = '';
+  path = "";
 
   mutex: Mutex = new Mutex();
 
   driver: {
-    ensureConfigFile: (filePath: string) => Promise<void>,
-    getConfigFromFile: (filePath: string) => Promise<Record<string, unknown>>,
-    saveConfig: (filePath: string, newObj: Record<string, unknown>) => Promise<void>,
-  }
+    ensureConfigFile: (filePath: string) => Promise<void>;
+    getConfigFromFile: (filePath: string) => Promise<Record<string, unknown>>;
+    saveConfig: (
+      filePath: string,
+      newObj: Record<string, unknown>
+    ) => Promise<void>;
+  };
 
-  constructor(filePath: string, driver: AsyncConfigStore['driver']) {
+  constructor(filePath: string, driver: AsyncConfigStore["driver"]) {
     this.path = filePath;
     this.driver = driver;
 
@@ -97,17 +100,17 @@ export class AsyncConfigStore {
           obj.stagingObj = { ...data };
 
           return obj;
-        })
+        });
       },
       getConfig: () => obj.stagingObj,
-    }
+    };
 
     await obj.refreshConfig();
 
     return obj;
   }
 
-  persistConfig(session: AsyncConfigSession): Promise<this> {
+  persistSession(session: AsyncConfigSession): Promise<this> {
     return this.mutex.runExclusive(async () => {
       const diff = jsonDiff.diff(session.storedObj, session.stagingObj);
 
@@ -119,6 +122,7 @@ export class AsyncConfigStore {
 
       return this;
     });
-  }}
+  }
+}
 
 export default AsyncConfigStore;

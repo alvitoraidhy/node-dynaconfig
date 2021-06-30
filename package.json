@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "postinstall": "npm run bootstrap",
     "clean": "rimraf packages/*/coverage packages/*/lib",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",

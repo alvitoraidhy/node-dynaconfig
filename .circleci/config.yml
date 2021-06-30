@@ -1,4 +1,4 @@
-version: '2.1'
+version: "2.1"
 orbs:
   node: circleci/node@4.3.0
 
@@ -7,18 +7,18 @@ workflows:
     jobs:
       - node/test:
           version: 16.3.0
-          run-command: 'test:all'
+          run-command: "test:all"
       - node/test:
           version: 14.17.1
-          run-command: 'test:all'
+          run-command: "test:all"
       - node/test:
           version: 12.22.1
-          run-command: 'test:all'
+          run-command: "test:all"
       - node/test:
           version: 10.24.1
-          run-command: 'test:all'
+          run-command: "test:all"
 
   test-with-coverage:
     jobs:
       - node/test:
-          run-command: 'test:ci'
+          run-command: "test:ci"

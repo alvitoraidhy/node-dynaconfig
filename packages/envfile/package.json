@@ -1,6 +1,6 @@
 {
   "name": "@dynaconfig/envfile",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A dynamic configuration library using *.env files",
   "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
   "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/envfile/README.md",

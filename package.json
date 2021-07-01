@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test:all": "jest --coverage",
-    "test:ci": "npm run build && npm run test:all && codecov",
+    "test:ci": "npm-run-all build boostrap test:all && codecov",
     "build": "lerna run build",
     "publish:all": "lerna publish",
     "publish:auto": "npm-run-all bootstrap lint format test:all build publish:all"

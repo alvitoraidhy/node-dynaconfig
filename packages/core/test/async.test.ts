@@ -1,4 +1,4 @@
-import { AsyncConfigStore } from "..";
+import { AsyncConfigStore } from "../src";
 
 const createDummyDriver = (initObj?: undefined | Record<string, unknown>) => {
   const obj = {

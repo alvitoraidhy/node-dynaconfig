@@ -1,6 +1,6 @@
 # `@dynaconfig/envfile`
 
-A dynamic configuration library using *.env files. Using keys and values other than string type is not recommended and might not get serialized and/or parsed correctly.
+A dynamic configuration library using \*.env files. Using keys and values other than string type is not recommended and might not get serialized and/or parsed correctly.
 Comments are currently not preserved.
 
 ## Usage
@@ -11,7 +11,6 @@ Before script:
 PASSWORD=password
 HASHED=false
 ```
-
 
 Run script:
 

@@ -1,4 +1,4 @@
-import { ConfigStore } from "..";
+import { ConfigStore } from "../src";
 
 const createDummyDriver = (initObj?: undefined | Record<string, unknown>) => {
   const obj = {

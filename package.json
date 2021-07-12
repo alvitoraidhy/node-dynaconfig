@@ -9,7 +9,7 @@
     "format": "lerna run format",
     "build": "lerna run build",
     "test": "lerna run test",
-    "test:ci": "npm-run-all build test",
+    "test:ci": "npm-run-all bootstrap build test",
     "stage": "npm-run-all bootstrap lint format build test",
     "publish": "lerna publish"
   },

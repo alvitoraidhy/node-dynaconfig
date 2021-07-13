@@ -1,16 +1,16 @@
-import { ConfigStore } from "..";
+import { ConfigStore } from "../src";
 
 const createDummyDriver = (initObj?: undefined | Record<string, unknown>) => {
   const obj = {
     storedObj: initObj as undefined | Record<string, unknown>,
-    ensureConfigFile: () => {
+    ensureSource: () => {
       if (!obj.storedObj) obj.storedObj = {};
       return;
     },
-    getConfigFromFile: () => {
+    getConfigFromSource: () => {
       return obj.storedObj as Record<string, unknown>;
     },
-    saveConfig: (filePath: string, newObj: Record<string, unknown>) => {
+    saveConfig: (uri: string, newObj: Record<string, unknown>) => {
       obj.storedObj = newObj;
       return;
     },

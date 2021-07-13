@@ -1,9 +1,4 @@
 {
-  "name": "@dynaconfig/core",
-  "version": "0.0.4",
-  "description": "The core module, used by other Dynaconfig packages",
-  "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
-  "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/core/README.md",
   "license": "GPL-3.0",
   "main": "lib/index.js",
   "directories": {
@@ -25,10 +20,6 @@
     "format": "prettier --write .",
     "test": "jest",
     "test:coverage": "jest --coverage"
-  },
-  "dependencies": {
-    "async-mutex": "^0.3.1",
-    "rus-diff": "^1.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

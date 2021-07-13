@@ -4,12 +4,12 @@ import * as envfile from "envfile";
 import { AsyncConfigStore } from "@dynaconfig/core";
 
 const asyncDriver = {
-  ensureConfigFile: async (filePath: string) => {
+  ensureSource: async (filePath: string) => {
     const file = await fs.promises.open(filePath, "a");
     await file.close();
     return;
   },
-  getConfigFromFile: async (filePath: string) => {
+  getConfigFromSource: async (filePath: string) => {
     const data = await fs.promises.readFile(filePath);
     return envfile.parse<Record<string, unknown>>(data.toString());
   },

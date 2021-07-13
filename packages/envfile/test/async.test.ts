@@ -6,37 +6,24 @@ import { promisify } from "util";
 // @ts-ignore
 import rimraf from "rimraf";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import copyfiles from "copyfiles";
+import copy from "recursive-copy";
 import { async as AsyncEnvFile } from "../src";
 
-const defaultFixtureFolder = "fixtures";
+const defaultFixtureFolder = "fixtures/default";
 const fixtureFolder = "fixtures/async";
 
-beforeAll(
-  () =>
-    new Promise((resolve, reject) => {
-      fs.promises
-        .mkdir(path.resolve(__dirname, fixtureFolder))
-        .catch((err) => {
-          if (err.code !== "EEXIST") throw err;
-        })
-        .then(() => {
-          copyfiles(
-            [
-              path.resolve(__dirname, defaultFixtureFolder, "*"),
-              path.resolve(__dirname, fixtureFolder),
-            ],
-            { up: 1 },
-            (err: Error) => {
-              if (err) reject(err);
-              else resolve(null);
-            }
-          );
-        });
-    })
-);
+beforeAll(async () => {
+  try {
+    await fs.promises.mkdir(path.resolve(__dirname, fixtureFolder));
+  } catch (err) {
+    if (err.code !== "EEXIST") throw err;
+  }
+  await copy(
+    path.resolve(__dirname, defaultFixtureFolder),
+    path.resolve(__dirname, fixtureFolder),
+    { dot: true }
+  );
+});
 
 afterAll(
   () =>

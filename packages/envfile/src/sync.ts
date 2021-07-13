@@ -4,11 +4,11 @@ import * as envfile from "envfile";
 import { ConfigStore } from "@dynaconfig/core";
 
 const syncDriver = {
-  ensureConfigFile: (filePath: string) => {
+  ensureSource: (filePath: string) => {
     fs.closeSync(fs.openSync(filePath, "a"));
     return;
   },
-  getConfigFromFile: (filePath: string) => {
+  getConfigFromSource: (filePath: string) => {
     const data = fs.readFileSync(filePath);
     return envfile.parse<Record<string, unknown>>(data.toString());
   },

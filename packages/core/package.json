@@ -23,7 +23,8 @@
     "build": "tsc --project tsconfig.prod.json",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "async-mutex": "^0.3.1",

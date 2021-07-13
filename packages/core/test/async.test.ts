@@ -3,14 +3,14 @@ import { AsyncConfigStore } from "../src";
 const createDummyDriver = (initObj?: undefined | Record<string, unknown>) => {
   const obj = {
     storedObj: initObj as undefined | Record<string, unknown>,
-    ensureConfigFile: async () => {
+    ensureSource: async () => {
       if (!obj.storedObj) obj.storedObj = {};
       return;
     },
-    getConfigFromFile: async () => {
+    getConfigFromSource: async () => {
       return obj.storedObj as Record<string, unknown>;
     },
-    saveConfig: async (filePath: string, newObj: Record<string, unknown>) => {
+    saveConfig: async (uri: string, newObj: Record<string, unknown>) => {
       obj.storedObj = newObj;
       return;
     },

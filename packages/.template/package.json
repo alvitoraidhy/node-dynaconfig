@@ -18,7 +18,8 @@
     "build": "tsc --project tsconfig.prod.json",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

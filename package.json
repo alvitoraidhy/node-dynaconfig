@@ -13,7 +13,7 @@
     "test:ci": "npm-run-all build test",
     "test:ci-coverage": "npm-run-all build test:coverage && node ./scripts/coverageMerger.js && codecov",
     "stage": "npm-run-all bootstrap lint format build test:coverage",
-    "publish": "lerna publish"
+    "publish:all": "lerna publish"
   },
   "devDependencies": {
     "codecov": "^3.8.2",

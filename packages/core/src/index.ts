@@ -1,4 +1,8 @@
-import { Mutex } from "async-mutex";
+import { promisify } from "util";
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Mutex from "rwlock";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -71,7 +75,10 @@ export class ConfigStore {
 export class AsyncConfigStore {
   uri = "";
 
-  mutex: Mutex = new Mutex();
+  mutex: {
+    writeLock: () => Promise<() => void>;
+    readLock: () => Promise<() => void>;
+  };
 
   driver: {
     ensureSource: (uri: string) => Promise<void>;
@@ -83,21 +90,31 @@ export class AsyncConfigStore {
     this.uri = uri;
     this.driver = driver;
 
-    this.mutex.runExclusive(() => this.driver.ensureSource(this.uri));
+    const mutex = new Mutex();
+
+    this.mutex = {
+      readLock: promisify(mutex.async.readLock),
+      writeLock: promisify(mutex.async.writeLock),
+    };
+
+    this.mutex.writeLock().then(async (release) => {
+      await this.driver.ensureSource(this.uri);
+      release();
+    });
   }
 
   async newSession(): Promise<AsyncConfigSession> {
     const obj = {
       storedObj: {},
       stagingObj: {},
-      refreshConfig: () => {
-        return this.mutex.runExclusive(async () => {
-          const data = await this.driver.getConfigFromSource(this.uri);
-          obj.storedObj = { ...data };
-          obj.stagingObj = { ...data };
+      refreshConfig: async () => {
+        const release = await this.mutex.readLock();
+        const data = await this.driver.getConfigFromSource(this.uri);
+        obj.storedObj = { ...data };
+        obj.stagingObj = { ...data };
 
-          return obj;
-        });
+        release();
+        return obj;
       },
       getConfig: () => obj.stagingObj,
     };
@@ -107,18 +124,18 @@ export class AsyncConfigStore {
     return obj;
   }
 
-  persistSession(session: AsyncConfigSession): Promise<this> {
-    return this.mutex.runExclusive(async () => {
-      const diff = jsonDiff.diff(session.storedObj, session.stagingObj);
+  async persistSession(session: AsyncConfigSession): Promise<this> {
+    const release = await this.mutex.writeLock();
+    const diff = jsonDiff.diff(session.storedObj, session.stagingObj);
 
-      const sourceObj = await this.driver.getConfigFromSource(this.uri);
+    const sourceObj = await this.driver.getConfigFromSource(this.uri);
 
-      const newObj = jsonDiff.apply(sourceObj, diff);
+    const newObj = jsonDiff.apply(sourceObj, diff);
 
-      await this.driver.saveConfig(this.uri, newObj);
+    await this.driver.saveConfig(this.uri, newObj);
 
-      return this;
-    });
+    release();
+    return this;
   }
 }
 

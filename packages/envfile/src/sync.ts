@@ -23,7 +23,8 @@ const syncDriver = {
 };
 
 export class SyncEnvFile extends ConfigStore {
-  constructor(filePath: string = path.resolve(process.cwd(), ".env")) {
+  constructor(fileName = ".env") {
+    const filePath = path.resolve(process.cwd(), fileName);
     super(filePath, syncDriver);
   }
 }

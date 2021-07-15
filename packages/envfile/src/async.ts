@@ -24,7 +24,8 @@ const asyncDriver = {
 };
 
 export class AsyncEnvFile extends AsyncConfigStore {
-  constructor(filePath: string = path.resolve(process.cwd(), ".env")) {
+  constructor(fileName = ".env") {
+    const filePath = path.resolve(process.cwd(), fileName);
     super(filePath, asyncDriver);
   }
 }

@@ -1,6 +1,5 @@
 import path from "path";
 import fs from "fs";
-import * as envfile from "envfile";
 import { ConfigStore } from "@dynaconfig/core";
 
 const syncDriver = {
@@ -10,23 +9,23 @@ const syncDriver = {
   },
   getConfigFromSource: (filePath: string) => {
     const data = fs.readFileSync(filePath);
-    return envfile.parse<Record<string, unknown>>(data.toString());
+    return data.toString().trim().length > 0 ? JSON.parse(data.toString()) : {};
   },
   saveConfig: (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object
-    const envString = envfile.stringify(newObj);
+    const jsonString = JSON.stringify(newObj);
 
-    // Store new object in env file
-    fs.writeFileSync(filePath, envString);
+    // Store new object in json file
+    fs.writeFileSync(filePath, jsonString);
     return;
   },
 };
 
-export class SyncEnvFile extends ConfigStore {
-  constructor(fileName = ".env") {
+export class SyncJsonFile extends ConfigStore {
+  constructor(fileName = "config.json") {
     const filePath = path.resolve(process.cwd(), fileName);
     super(filePath, syncDriver);
   }
 }
 
-export default SyncEnvFile;
+export default SyncJsonFile;

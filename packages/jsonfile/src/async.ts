@@ -1,6 +1,5 @@
 import path from "path";
 import fs from "fs";
-import * as envfile from "envfile";
 import { AsyncConfigStore } from "@dynaconfig/core";
 
 const asyncDriver = {
@@ -11,23 +10,23 @@ const asyncDriver = {
   },
   getConfigFromSource: async (filePath: string) => {
     const data = await fs.promises.readFile(filePath);
-    return envfile.parse<Record<string, unknown>>(data.toString());
+    return data.toString().trim().length > 0 ? JSON.parse(data.toString()) : {};
   },
   saveConfig: async (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object
-    const envString = envfile.stringify(newObj);
+    const jsonString = JSON.stringify(newObj);
 
-    // Store new object in env file
-    await fs.promises.writeFile(filePath, envString);
+    // Store new object in json file
+    await fs.promises.writeFile(filePath, jsonString);
     return;
   },
 };
 
-export class AsyncEnvFile extends AsyncConfigStore {
-  constructor(fileName = ".env") {
+export class AsyncJsonFile extends AsyncConfigStore {
+  constructor(fileName = "config.json") {
     const filePath = path.resolve(process.cwd(), fileName);
     super(filePath, asyncDriver);
   }
 }
 
-export default AsyncEnvFile;
+export default AsyncJsonFile;

@@ -1,40 +1,58 @@
 # `@dynaconfig/envfile`
 
-A dynamic configuration library using \*.env files. Using keys and values other than string type is not recommended and might not get serialized and/or parsed correctly.
-Comments are currently not preserved.
+[![npm](https://img.shields.io/npm/v/@dynaconfig/envfile.svg)](https://www.npmjs.com/package/@dynaconfig/envfile)
+
+A configuration generation library using `*.env` files. Using keys and values other than string type is not recommended as they might not get serialized and/or parsed correctly. Comments are currently not preserved when persisting a configuration object.
 
 ## Usage
 
-Before script:
+`'./.env'`, before script:
 
-```bash
+```
 PASSWORD=password
 HASHED=false
 ```
 
-Run script:
+`'./index.js'`, run script:
 
 ```javascript
-...
-const { sync as EnvStore } = require('@dynaconfig/envfile');
+// ...
+const { async: AsyncEnvStore } = require('@dynaconfig/envfile');
 
-const store = new EnvStore(envPath);
+// Creates a new instance. "envPath" is the file path
+const store = new AsyncEnvStore(envPath);
+
+// Every time a new session is created, the store
+// loads the configurations from the file
 store.newSession().then(async (session) => {
+
+  // Gets the configuration object
   const config = session.getConfig();
 
-  const password = config["PASSWORD"];
+  const password = config["PASSWORD"]; // "password"
   config["PASSWORD_HASH"] = md5hash(password);
   config["HASHED"] = "true";
   delete config["PASSWORD"];
-  ...
+
+  // Writes the new configuration object to the file
   await store.persistSession(session);
+
+  // Reloads the configurations from the file
+  await session.refreshConfig()
+
+  // ...
+
   return;
 });
 ```
 
-After script:
+`'./.env'`, after script:
 
-```bash
+```
 HASHED=true
 PASSWORD_HASH=5f4dcc3b5aa765d61d8327deb882cf99
 ```
+
+## License
+
+[GPL v3](./LICENSE)

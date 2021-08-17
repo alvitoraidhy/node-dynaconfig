@@ -1,6 +1,6 @@
 {
   "name": "@dynaconfig/jsonfile",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A dynamic configuration library using *.json files",
   "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
   "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/jsonfile/README.md",

@@ -14,4 +14,4 @@ A configuration generation library for various applications.
 
 ## License
 
-This repository is licensed under the [MIT license](./LICENSE).
+This repository is licensed under the [MIT License](./LICENSE).

@@ -1,6 +1,7 @@
 # `@dynaconfig/toml`
 
 [![npm](https://img.shields.io/npm/v/@dynaconfig/toml.svg)](https://www.npmjs.com/package/@dynaconfig/toml)
+[![license](https://img.shields.io/npm/l/@dynaconfig/toml.svg)](./LICENSE)
 
 A configuration generation library using `*.toml` files.
 
@@ -17,7 +18,7 @@ HASHED = "false"
 
 ```javascript
 // ...
-const { async: AsyncTomlStore } = require('@dynaconfig/toml');
+const { async: AsyncTomlStore } = require("@dynaconfig/toml");
 
 // Creates a new instance. 'tomlPath' is the file path
 const store = new AsyncTomlStore(tomlPath);
@@ -25,7 +26,6 @@ const store = new AsyncTomlStore(tomlPath);
 // Every time a new session is created, the store
 // loads the configurations from the file
 store.newSession().then(async (session) => {
-
   // Gets the configuration object
   const config = session.getConfig();
 
@@ -38,7 +38,7 @@ store.newSession().then(async (session) => {
   await store.persistSession(session);
 
   // Reloads the configurations from the file
-  await session.refreshConfig()
+  await session.refreshConfig();
 
   // ...
 
@@ -51,7 +51,10 @@ store.newSession().then(async (session) => {
 ```toml
 HASHED = "true"
 PASSWORD_HASH = "5f4dcc3b5aa765d61d8327deb882cf99"
+
 ```
+
+For more examples, check out [@dynaconfig/core](../core/README.md).
 
 ## License
 

@@ -14,7 +14,7 @@ const asyncDriver = {
   },
   saveConfig: async (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object
-    const jsonString = JSON.stringify(newObj);
+    const jsonString = JSON.stringify(newObj, null, "  ");
 
     // Store new object in json file
     await fs.promises.writeFile(filePath, jsonString);

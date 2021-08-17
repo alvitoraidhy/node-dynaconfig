@@ -10,7 +10,7 @@ const syncDriver = {
   },
   getConfigFromSource: (filePath: string) => {
     const data = fs.readFileSync(filePath);
-    return envfile.parse<Record<string, unknown>>(data.toString());
+    return envfile.parse(data.toString()) as Record<string, unknown>;
   },
   saveConfig: (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object

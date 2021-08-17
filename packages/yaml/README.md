@@ -1,6 +1,7 @@
 # `@dynaconfig/yaml`
 
 [![npm](https://img.shields.io/npm/v/@dynaconfig/yaml.svg)](https://www.npmjs.com/package/@dynaconfig/yaml)
+[![license](https://img.shields.io/npm/l/@dynaconfig/yaml.svg)](./LICENSE)
 
 A configuration generation library using `*.yaml` files.
 
@@ -17,7 +18,7 @@ HASHED: "false"
 
 ```javascript
 // ...
-const { async: AsyncYamlStore } = require('@dynaconfig/yaml');
+const { async: AsyncYamlStore } = require("@dynaconfig/yaml");
 
 // Creates a new instance. 'yamlPath' is the file path
 const store = new AsyncYamlStore(yamlPath);
@@ -25,7 +26,6 @@ const store = new AsyncYamlStore(yamlPath);
 // Every time a new session is created, the store
 // loads the configurations from the file
 store.newSession().then(async (session) => {
-
   // Gets the configuration object
   const config = session.getConfig();
 
@@ -38,7 +38,7 @@ store.newSession().then(async (session) => {
   await store.persistSession(session);
 
   // Reloads the configurations from the file
-  await session.refreshConfig()
+  await session.refreshConfig();
 
   // ...
 
@@ -50,8 +50,10 @@ store.newSession().then(async (session) => {
 
 ```yaml
 HASHED: "true"
-PASSWORD_HASH: "5f4dcc3b5aa765d61d8327deb882cf99"
+PASSWORD_HASH: 5f4dcc3b5aa765d61d8327deb882cf99
 ```
+
+For more examples, check out [@dynaconfig/core](../core/README.md).
 
 ## License
 

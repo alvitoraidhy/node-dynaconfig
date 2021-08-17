@@ -1,6 +1,7 @@
 # `@dynaconfig/envfile`
 
 [![npm](https://img.shields.io/npm/v/@dynaconfig/envfile.svg)](https://www.npmjs.com/package/@dynaconfig/envfile)
+[![license](https://img.shields.io/npm/l/@dynaconfig/envfile.svg)](./LICENSE)
 
 A configuration generation library using `*.env` files. Using keys and values other than string type is not recommended as they might not get serialized and/or parsed correctly. Comments are currently not preserved when persisting a configuration object.
 
@@ -11,13 +12,14 @@ A configuration generation library using `*.env` files. Using keys and values ot
 ```
 PASSWORD=password
 HASHED=false
+
 ```
 
 `'./index.js'`, run script:
 
 ```javascript
 // ...
-const { async: AsyncEnvStore } = require('@dynaconfig/envfile');
+const { async: AsyncEnvStore } = require("@dynaconfig/envfile");
 
 // Creates a new instance. "envPath" is the file path
 const store = new AsyncEnvStore(envPath);
@@ -25,7 +27,6 @@ const store = new AsyncEnvStore(envPath);
 // Every time a new session is created, the store
 // loads the configurations from the file
 store.newSession().then(async (session) => {
-
   // Gets the configuration object
   const config = session.getConfig();
 
@@ -38,7 +39,7 @@ store.newSession().then(async (session) => {
   await store.persistSession(session);
 
   // Reloads the configurations from the file
-  await session.refreshConfig()
+  await session.refreshConfig();
 
   // ...
 
@@ -51,7 +52,10 @@ store.newSession().then(async (session) => {
 ```
 HASHED=true
 PASSWORD_HASH=5f4dcc3b5aa765d61d8327deb882cf99
+
 ```
+
+For more examples, check out [@dynaconfig/core](../core/README.md).
 
 ## License
 

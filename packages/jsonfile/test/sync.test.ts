@@ -62,7 +62,8 @@ describe("Synchronous Dynaconfig (jsonfile)", () => {
 
     rimraf.sync(filePath);
 
-    new JsonFile(filePath);
+    const config = new JsonFile(filePath);
+    config.newSession();
 
     expect(fs.existsSync(filePath)).toBe(true);
   });

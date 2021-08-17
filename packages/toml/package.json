@@ -4,7 +4,7 @@
   "description": "A dynamic configuration library using *.toml files",
   "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
   "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/toml/README.md",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",

@@ -61,4 +61,4 @@ For more examples, check out [@dynaconfig/core](../core/README.md).
 
 ## License
 
-[GPL v3](./LICENSE)
+[MIT](./LICENSE)

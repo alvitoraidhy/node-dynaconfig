@@ -99,4 +99,4 @@ session.refreshConfig();
 
 ## License
 
-[GPL v3](./LICENSE)
+[MIT](./LICENSE)

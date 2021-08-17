@@ -13,7 +13,7 @@ const syncDriver = {
   },
   saveConfig: (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object
-    const jsonString = JSON.stringify(newObj);
+    const jsonString = JSON.stringify(newObj, null, "  ");
 
     // Store new object in json file
     fs.writeFileSync(filePath, jsonString);

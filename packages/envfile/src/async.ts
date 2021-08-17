@@ -11,7 +11,7 @@ const asyncDriver = {
   },
   getConfigFromSource: async (filePath: string) => {
     const data = await fs.promises.readFile(filePath);
-    return envfile.parse<Record<string, unknown>>(data.toString());
+    return envfile.parse(data.toString()) as Record<string, unknown>;
   },
   saveConfig: async (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object

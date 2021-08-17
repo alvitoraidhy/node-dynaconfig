@@ -1,10 +1,10 @@
 {
   "name": "@dynaconfig/core",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "The core module, used by other Dynaconfig packages",
   "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
   "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/core/README.md",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib",

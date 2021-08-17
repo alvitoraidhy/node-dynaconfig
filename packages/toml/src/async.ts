@@ -1,5 +1,7 @@
 import path from "path";
 import fs from "fs";
+import TOML from "@iarna/toml";
+
 import { AsyncConfigStore } from "@dynaconfig/core";
 
 const asyncDriver = {
@@ -10,23 +12,23 @@ const asyncDriver = {
   },
   getConfigFromSource: async (filePath: string) => {
     const data = await fs.promises.readFile(filePath);
-    return data.toString().trim().length > 0 ? JSON.parse(data.toString()) : {};
+    return TOML.parse(data.toString());
   },
   saveConfig: async (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object
-    const jsonString = JSON.stringify(newObj, null, "  ");
+    const tomlString = TOML.stringify(newObj as Record<string, never>);
 
-    // Store new object in json file
-    await fs.promises.writeFile(filePath, jsonString);
+    // Store new object in toml file
+    await fs.promises.writeFile(filePath, tomlString);
     return;
   },
 };
 
-export class AsyncJsonFile extends AsyncConfigStore {
-  constructor(fileName = "config.json") {
+export class AsyncTomlFile extends AsyncConfigStore {
+  constructor(fileName = "config.toml") {
     const filePath = path.resolve(process.cwd(), fileName);
     super(filePath, asyncDriver);
   }
 }
 
-export default AsyncJsonFile;
+export default AsyncTomlFile;

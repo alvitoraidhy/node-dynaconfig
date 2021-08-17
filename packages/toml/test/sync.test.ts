@@ -6,7 +6,7 @@ import fs from "fs";
 import rimraf from "rimraf";
 
 import copy from "recursive-copy";
-import { sync as JsonFile } from "../src";
+import { sync as TomlFile } from "../src";
 
 const defaultFixtureFolder = "fixtures/default";
 const fixtureFolder = "fixtures/sync";
@@ -33,11 +33,11 @@ afterAll(
     })
 );
 
-describe("Synchronous Dynaconfig (jsonfile)", () => {
-  it("should load the relative 'config.json' by default", () => {
+describe("Synchronous Dynaconfig (TomlFile)", () => {
+  it("should load the relative 'config.toml' by default", () => {
     const currentDir = process.cwd();
     process.chdir(path.resolve(__dirname, fixtureFolder));
-    const config = new JsonFile();
+    const config = new TomlFile();
     process.chdir(currentDir);
 
     const testResult = config.newSession().getConfig()[
@@ -46,9 +46,9 @@ describe("Synchronous Dynaconfig (jsonfile)", () => {
     expect(testResult).toEqual("success");
   });
 
-  it("should load the given '.json' path", () => {
-    const config = new JsonFile(
-      path.resolve(__dirname, fixtureFolder, "config.test.json")
+  it("should load the given '.toml' path", () => {
+    const config = new TomlFile(
+      path.resolve(__dirname, fixtureFolder, "config.test.toml")
     );
 
     const testResult = config.newSession().getConfig()[
@@ -58,20 +58,19 @@ describe("Synchronous Dynaconfig (jsonfile)", () => {
   });
 
   it("should create a new file if the file does not exist", () => {
-    const filePath = path.resolve(__dirname, fixtureFolder, "nonexistent.json");
+    const filePath = path.resolve(__dirname, fixtureFolder, "nonexistent.toml");
 
     rimraf.sync(filePath);
 
-    const config = new JsonFile(filePath);
-    config.newSession();
+    new TomlFile(filePath);
 
     expect(fs.existsSync(filePath)).toBe(true);
   });
 
   it("should create a key and persist config", () => {
-    const filePath = path.resolve(__dirname, fixtureFolder, "create.json");
+    const filePath = path.resolve(__dirname, fixtureFolder, "create.toml");
 
-    const config = new JsonFile(filePath);
+    const config = new TomlFile(filePath);
 
     const session = config.newSession();
     const obj = session.getConfig();
@@ -87,9 +86,9 @@ describe("Synchronous Dynaconfig (jsonfile)", () => {
   });
 
   it("should update a key and persist config", () => {
-    const filePath = path.resolve(__dirname, fixtureFolder, "update.json");
+    const filePath = path.resolve(__dirname, fixtureFolder, "update.toml");
 
-    const config = new JsonFile(filePath);
+    const config = new TomlFile(filePath);
 
     const session = config.newSession();
     const obj = session.getConfig();
@@ -105,9 +104,9 @@ describe("Synchronous Dynaconfig (jsonfile)", () => {
   });
 
   it("should delete a key and persist config", () => {
-    const filePath = path.resolve(__dirname, fixtureFolder, "delete.json");
+    const filePath = path.resolve(__dirname, fixtureFolder, "delete.toml");
 
-    const config = new JsonFile(filePath);
+    const config = new TomlFile(filePath);
 
     const session = config.newSession();
     const obj = session.getConfig();

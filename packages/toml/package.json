@@ -1,9 +1,9 @@
 {
-  "name": "@dynaconfig/jsonfile",
-  "version": "2.0.1",
-  "description": "A dynamic configuration library using *.json files",
+  "name": "@dynaconfig/toml",
+  "version": "2.0.0",
+  "description": "A dynamic configuration library using *.toml files",
   "author": "Alvito Raidhy <alvito.raidhy21@gmail.com>",
-  "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/jsonfile/README.md",
+  "homepage": "https://github.com/alvitoraidhy/node-dynaconfig/blob/main/packages/toml/README.md",
   "license": "MIT",
   "main": "lib/index.js",
   "directories": {
@@ -36,10 +36,12 @@
     "jest": "^27.0.5",
     "prettier": "^2.3.2",
     "recursive-copy": "^2.0.13",
+    "rimraf": "^3.0.2",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "@dynaconfig/core": "^2.0.0"
+    "@dynaconfig/core": "^2.0.0",
+    "@iarna/toml": "^2.2.5"
   }
 }

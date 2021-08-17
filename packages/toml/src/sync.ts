@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
-import * as envfile from "envfile";
+import TOML from "@iarna/toml";
+
 import { ConfigStore } from "@dynaconfig/core";
 
 const syncDriver = {
@@ -10,23 +11,23 @@ const syncDriver = {
   },
   getConfigFromSource: (filePath: string) => {
     const data = fs.readFileSync(filePath);
-    return envfile.parse(data.toString()) as Record<string, unknown>;
+    return TOML.parse(data.toString());
   },
   saveConfig: (filePath: string, newObj: Record<string, unknown>) => {
     // Serialize the object
-    const envString = envfile.stringify(newObj);
+    const tomlString = TOML.stringify(newObj as Record<string, never>);
 
-    // Store new object in env file
-    fs.writeFileSync(filePath, envString);
+    // Store new object in toml file
+    fs.writeFileSync(filePath, tomlString);
     return;
   },
 };
 
-export class SyncEnvFile extends ConfigStore {
-  constructor(fileName = ".env") {
+export class SyncTomlFile extends ConfigStore {
+  constructor(fileName = "config.toml") {
     const filePath = path.resolve(process.cwd(), fileName);
     super(filePath, syncDriver);
   }
 }
 
-export default SyncEnvFile;
+export default SyncTomlFile;

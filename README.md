@@ -10,7 +10,7 @@ A configuration generation library for various applications.
 - [@dynaconfig/envfile](./packages/envfile/README.md)
 - [@dynaconfig/jsonfile](./packages/jsonfile/README.md)
 - [@dynaconfig/toml](./packages/toml/README.md)
-- [@dynaconfig/yaml](./packages/jsonfile/README.md)
+- [@dynaconfig/yaml](./packages/yaml/README.md)
 
 ## License
 
